@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <h1>Login Here</h1>
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="register.html">Register</a>
+    </nav>
+</header>
+<div class="login-box">
+    <h2>Login</h2>
+
+    <form action="php/login.php" method="post">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" class="pwd-field" name="password" placeholder="Password" required><br>
+    <label class="show-pwd">
+    <input type="checkbox" class="pwd-toggle">
+    Show Password
+    </label>
+    <button type="submit">Login</button>
+    <p>Not Registered?<a href="register.html">Register here</a></p>
+
+</form>
+
+</div>
+<script>
+document.querySelectorAll('.pwd-toggle').forEach(toggle => {
+    toggle.addEventListener('change', function () {
+        const pwdInput = this.closest('form').querySelector('.pwd-field');
+        if (pwdInput) {
+            pwdInput.type = this.checked ? 'text' : 'password';
+        }
+    });
+});
+</script>
+</body>
+</html>
