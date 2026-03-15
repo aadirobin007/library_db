@@ -3,8 +3,8 @@ session_start();
 require '../db/config.php';
 
 /* Only allow Admin */
-if (!isset($_SESSION['username']) || $_SESSION['category'] !== 'Admin') {
-    header("Location: ../login.html");
+if (!isset($_SESSION['username']) || $_SESSION['category'] !== 'admin') {
+    header("Location: ../admin_login.html");
     exit();
 }
 
@@ -25,6 +25,9 @@ $result = $conn->query("SELECT id, username, category FROM users");
     <h1>Admin Dashboard</h1>
     <div>
         <a href="../home.html" class="nav-btn">Back Home</a>
+
+        <a href="role_requests.php" class="nav-btn">Role Request</a>
+
         <a href="logout.php" class="nav-btn">Logout</a>
     </div>
 </header>

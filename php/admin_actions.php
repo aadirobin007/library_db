@@ -3,7 +3,7 @@ session_start();
 require '../db/config.php';
 
 /* Only Admin */
-if (!isset($_SESSION['username']) || $_SESSION['category'] !== 'Admin') {
+if (!isset($_SESSION['username']) || $_SESSION['category'] !== 'admin') {
     header("Location: ../login.html");
     exit();
 }

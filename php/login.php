@@ -22,20 +22,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $row['username'];
         $_SESSION['category'] = $category;
 
-        // 🔔 Promotion message (ACCEPT / REJECT)
-        $_SESSION['promotion_message'] = $row['promotion_message'];
-        $_SESSION['promotion_status']  = $row['promotion_status'];
 
         // Redirect
         if ($category === "Teacher" || $category === "Teacher_Admin") {
-            header("Location: tdashboard.php");
-            exit();
-        } elseif ($category === "Student") {
-            header("Location: sdashboard.php");
-            exit();
-        } else {
-            echo "Invalid User Category";
-        }
+    header("Location: tdashboard.php");
+    exit();
+} elseif ($category === "Student") {
+    header("Location: sdashboard.php");
+    exit();
+} elseif ($category === "Librarian" || $category === "Library Assistant") {
+    header("Location: ldashboard.php");
+    exit();
+} else {
+    echo "Invalid User Category";
+}
 
     } else {
         echo "Invalid Login";
