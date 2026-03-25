@@ -10,6 +10,12 @@ if (!isset($_SESSION['username']) || $_SESSION['category'] !== 'admin') {
 
 /* Fetch users */
 $result = $conn->query("SELECT id, username, category FROM users");
+
+/* Dashboard Statistics */
+$total_books = $conn->query("SELECT SUM(quantity) as total FROM books")->fetch_assoc()['total'] ?? 0;
+$total_users = $conn->query("SELECT COUNT(*) as total FROM users")->fetch_assoc()['total'] ?? 0;
+$active_borrows = $conn->query("SELECT COUNT(*) as total FROM borrowed_books WHERE status='borrowed'")->fetch_assoc()['total'] ?? 0;
+$overdue_books = $conn->query("SELECT COUNT(*) as total FROM borrowed_books WHERE status='borrowed' AND due_date < CURDATE()")->fetch_assoc()['total'] ?? 0;
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +37,26 @@ $result = $conn->query("SELECT id, username, category FROM users");
         <a href="logout.php" class="nav-btn">Logout</a>
     </div>
 </header>
+
+<!-- Dashboard Statistics Cards -->
+<div class="card-container" style="margin:20px auto; max-width:1000px;">
+    <div class="card">
+        <h3>Total Books</h3>
+        <p style="font-size:32px; font-weight:bold; color:#1e3c72;"><?php echo $total_books; ?></p>
+    </div>
+    <div class="card">
+        <h3>Total Users</h3>
+        <p style="font-size:32px; font-weight:bold; color:#1e3c72;"><?php echo $total_users; ?></p>
+    </div>
+    <div class="card">
+        <h3>Active Borrows</h3>
+        <p style="font-size:32px; font-weight:bold; color:#28a745;"><?php echo $active_borrows; ?></p>
+    </div>
+    <div class="card">
+        <h3>Overdue Books</h3>
+        <p style="font-size:32px; font-weight:bold; color:#dc3545;"><?php echo $overdue_books; ?></p>
+    </div>
+</div>
 
 <h2 style="text-align:center;">Manage Users</h2>
 
@@ -61,11 +87,12 @@ if (isset($_SESSION['success'])) {
         </label>
 
         <select name="category" required>
-            <option value="Student">Student</option>
-            <option value="Teacher">Teacher</option>
-            <option value="Teacher_Admin">Teacher_Admin</option>
-            <option value="Admin">Admin</option>
-        </select>
+    <option value="Student">Student</option>
+    <option value="Teacher">Teacher</option>
+    <option value="Teacher_Admin">Teacher_Admin</option>
+    <option value="Librarian">Librarian</option>
+    <option value="Library_Assistant">Library Assistant</option>
+</select>
 
         <button type="submit" name="action" value="add">Add User</button>
     </form>

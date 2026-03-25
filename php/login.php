@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } elseif ($category === "Student") {
     header("Location: sdashboard.php");
     exit();
-} elseif ($category === "Librarian" || $category === "Library Assistant") {
+} elseif ($category === "Librarian" || $category === "Library_Assistant") {
     header("Location: ldashboard.php");
     exit();
 } else {

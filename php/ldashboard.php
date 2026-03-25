@@ -9,6 +9,7 @@ if (!isset($_SESSION['username']) ||
     header("Location: ../login.html");
     exit();
 }
+$username = $_SESSION['username'];
 
 /* FETCH BOOKS */
 $result = $conn->query("SELECT * FROM books ORDER BY id DESC");
@@ -25,12 +26,22 @@ $result = $conn->query("SELECT * FROM books ORDER BY id DESC");
 <body>
 <div>
 <header class="top-header">
-<h2>Library Dashboard,</h2>
-<span>Welcome <?php echo htmlspecialchars($_SESSION['username']); ?></span></h2>
-<a href="issue_book.php" class="nav-btn">Issue Book</a>
-<a href="borrowed_book.php" class="nav-btn">Borrowed Books</a>
 
-<a href="logout.php" class="nav-btn">Logout</a>
+<h2>WELCOME ,<?php echo htmlspecialchars($username); ?></h2>
+
+<div class="profile-menu">
+
+<button class="profile-btn" onclick="toggleProfileMenu()">
+<i class="fa-solid fa-user"></i> Profile
+</button>
+
+<div class="profile-panel" id="profilePanel">
+
+<a href="issue_book.php">Issue Book</a>
+<a href="borrowed_book.php">Borrowed Books</a>
+<a href="logout.php">Logout</a>
+
+</div>
 </div>
 </header>
 
@@ -119,6 +130,30 @@ Update
 <?php endwhile; ?>
 
 </table>
+
+<script>
+
+function toggleProfileMenu(){
+
+const panel = document.getElementById("profilePanel");
+
+panel.style.display =
+panel.style.display === "block" ? "none" : "block";
+
+}
+
+document.addEventListener("click", function(event){
+
+const panel = document.getElementById("profilePanel");
+const button = document.querySelector(".profile-btn");
+
+if (!panel.contains(event.target) && !button.contains(event.target)) {
+panel.style.display = "none";
+}
+
+});
+
+</script>
 
 </body>
 </html>

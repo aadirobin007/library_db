@@ -44,6 +44,6 @@ $stmt = $conn->prepare(
 $stmt->bind_param("i", $book_id);
 $stmt->execute();
 
-header("Location: borrowed_books.php");
+header("Location: borrowed_book.php");
 exit();
 ?>

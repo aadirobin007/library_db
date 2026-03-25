@@ -25,7 +25,7 @@ $username = $_SESSION['username'];
 <h1>WELCOME <?php echo $username; ?></h1>
 
 <div>
-<a href="student_borrowed_books.php" class="nav-btn">My Borrowed Books</a>
+<a href="student_borrowed_book.php" class="nav-btn">My Borrowed Books</a>
 <a href="../php/logout.php" class="nav-btn">Logout</a>
 </div>
 
